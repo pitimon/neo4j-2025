@@ -8,7 +8,7 @@ services:
       - neo4j_conf:/conf
       - neo4j_data:/data
       - neo4j_plugins:/plugins
-      # - neo4j_certificates:/var/lib/neo4j/ssl:ro
+      - neo4j_certificates:/var/lib/neo4j/ssl
       - neo4j_import:/var/lib/neo4j/import
       - neo4j_backups:/var/lib/neo4j/backups
       - /etc/timezone:/etc/timezone:ro
@@ -82,11 +82,11 @@ volumes:
   neo4j_import:
   neo4j_backups:
   neo4j_certificates:
-    # driver: local
-    # driver_opts:
-    #   type: nfs
-    #   o: addr=10.99.201.231,rw,soft,nfsvers=4,nolock,timeo=30
-    #   device: ":/mnt/Swarm/data/neo4j/certificates"
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=10.99.201.231,rw,soft,nfsvers=4,nolock,timeo=30
+      device: ":/mnt/Swarm/data/neo4j/certificates"
 
 networks:
   webproxy:
