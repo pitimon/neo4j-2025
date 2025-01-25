@@ -1,0 +1,51 @@
+Changed password for user 'neo4j'. IMPORTANT: this change will only take effect if performed before the database is started for the first time.
+2025-01-25 23:47:09.327+0000 INFO  Logging config in use: Embedded default config 'default-user-logs.xml'
+2025-01-25 23:47:09.332+0000 WARN  Use of deprecated setting 'dbms.connector.bolt.enabled'. It is replaced by 'server.bolt.enabled'.
+2025-01-25 23:47:09.352+0000 WARN  Use of deprecated setting 'dbms.connector.bolt.listen_address'. It is replaced by 'server.bolt.listen_address'.
+2025-01-25 23:47:09.353+0000 WARN  Use of deprecated setting 'dbms.default_listen_address'. It is replaced by 'server.default_listen_address'.
+2025-01-25 23:47:09.354+0000 INFO  Starting...
+2025-01-25 23:47:10.322+0000 INFO  This instance is ServerId{5040db53} (5040db53-c4a0-4a8e-8b3e-f46c13b442e3)
+2025-01-25 23:47:11.386+0000 INFO  ======== Neo4j 5.26.1 ========
+2025-01-25 23:47:24.787+0000 ERROR Failed to start Neo4j on 0.0.0.0:7474.
+java.lang.RuntimeException: Error starting Neo4j database server at /data/databases
+	at org.neo4j.graphdb.facade.DatabaseManagementServiceFactory.startDatabaseServer(DatabaseManagementServiceFactory.java:288) ~[neo4j-5.26.1.jar:5.26.1]
+	at org.neo4j.graphdb.facade.DatabaseManagementServiceFactory.build(DatabaseManagementServiceFactory.java:223) ~[neo4j-5.26.1.jar:5.26.1]
+	at org.neo4j.server.CommunityBootstrapper.createNeo(CommunityBootstrapper.java:38) ~[neo4j-5.26.1.jar:5.26.1]
+	at org.neo4j.server.NeoBootstrapper.start(NeoBootstrapper.java:185) [neo4j-5.26.1.jar:5.26.1]
+	at org.neo4j.server.NeoBootstrapper.start(NeoBootstrapper.java:100) [neo4j-5.26.1.jar:5.26.1]
+	at org.neo4j.server.CommunityEntryPoint.main(CommunityEntryPoint.java:30) [neo4j-5.26.1.jar:5.26.1]
+Caused by: org.neo4j.kernel.lifecycle.LifecycleException: Component 'org.neo4j.dbms.database.DefaultSystemGraphInitializer@51f68849' was successfully initialized, but failed to start. Please see the attached cause exception "The selected target store format 'AF4.3.0' (introduced in 4.3.0) is no longer supported".
+	at org.neo4j.kernel.lifecycle.LifeSupport$LifecycleInstance.start(LifeSupport.java:364) ~[neo4j-common-5.26.1.jar:5.26.1]
+	at org.neo4j.kernel.lifecycle.LifeSupport.start(LifeSupport.java:91) ~[neo4j-common-5.26.1.jar:5.26.1]
+	at org.neo4j.graphdb.facade.DatabaseManagementServiceFactory.startDatabaseServer(DatabaseManagementServiceFactory.java:279) ~[neo4j-5.26.1.jar:5.26.1]
+	... 5 more
+Caused by: org.neo4j.graphdb.DatabaseShutdownException: This database is shutdown.
+	at org.neo4j.kernel.availability.DatabaseAvailabilityGuard.assertDatabaseAvailable(DatabaseAvailabilityGuard.java:154) ~[neo4j-kernel-5.26.1.jar:5.26.1]
+	at org.neo4j.kernel.impl.factory.GraphDatabaseFacade.beginKernelTransaction(GraphDatabaseFacade.java:156) ~[neo4j-kernel-5.26.1.jar:5.26.1]
+	at org.neo4j.kernel.impl.factory.GraphDatabaseFacade.beginTransactionInternal(GraphDatabaseFacade.java:124) ~[neo4j-kernel-5.26.1.jar:5.26.1]
+	at org.neo4j.kernel.impl.factory.GraphDatabaseFacade.beginTransaction(GraphDatabaseFacade.java:93) ~[neo4j-kernel-5.26.1.jar:5.26.1]
+	at org.neo4j.kernel.impl.factory.GraphDatabaseTransactions.beginTransaction(GraphDatabaseTransactions.java:113) ~[neo4j-kernel-5.26.1.jar:5.26.1]
+	at org.neo4j.kernel.impl.factory.GraphDatabaseTransactions.beginTransaction(GraphDatabaseTransactions.java:107) ~[neo4j-kernel-5.26.1.jar:5.26.1]
+	at org.neo4j.kernel.impl.factory.GraphDatabaseTransactions.beginTransaction(GraphDatabaseTransactions.java:102) ~[neo4j-kernel-5.26.1.jar:5.26.1]
+	at org.neo4j.kernel.impl.factory.GraphDatabaseTransactions.beginTx(GraphDatabaseTransactions.java:93) ~[neo4j-kernel-5.26.1.jar:5.26.1]
+	at org.neo4j.dbms.database.SystemGraphComponents.initializeSystemGraph(SystemGraphComponents.java:84) ~[neo4j-kernel-5.26.1.jar:5.26.1]
+	at org.neo4j.dbms.database.DefaultSystemGraphInitializer.initializeSystemGraph(DefaultSystemGraphInitializer.java:38) ~[neo4j-5.26.1.jar:5.26.1]
+	at org.neo4j.dbms.database.SystemGraphInitializer.start(SystemGraphInitializer.java:27) ~[neo4j-kernel-5.26.1.jar:5.26.1]
+	at org.neo4j.kernel.lifecycle.LifeSupport$LifecycleInstance.start(LifeSupport.java:347) ~[neo4j-common-5.26.1.jar:5.26.1]
+	at org.neo4j.kernel.lifecycle.LifeSupport.start(LifeSupport.java:91) ~[neo4j-common-5.26.1.jar:5.26.1]
+	at org.neo4j.graphdb.facade.DatabaseManagementServiceFactory.startDatabaseServer(DatabaseManagementServiceFactory.java:279) ~[neo4j-5.26.1.jar:5.26.1]
+	... 5 more
+Caused by: org.neo4j.kernel.impl.storemigration.UnableToMigrateException: The selected target store format 'AF4.3.0' (introduced in 4.3.0) is no longer supported
+	at org.neo4j.kernel.impl.storemigration.StoreMigrator.doUpgradeCheck(StoreMigrator.java:402) ~[neo4j-kernel-5.26.1.jar:5.26.1]
+	at org.neo4j.kernel.impl.storemigration.StoreMigrator.upgradeIfNeeded(StoreMigrator.java:249) ~[neo4j-kernel-5.26.1.jar:5.26.1]
+	at org.neo4j.kernel.database.Database.upgradeStore(Database.java:802) ~[neo4j-kernel-5.26.1.jar:5.26.1]
+	at org.neo4j.kernel.database.Database.specificStart(Database.java:427) ~[neo4j-kernel-5.26.1.jar:5.26.1]
+	at org.neo4j.kernel.database.AbstractDatabase.start(AbstractDatabase.java:167) ~[neo4j-kernel-5.26.1.jar:5.26.1]
+	at org.neo4j.dbms.database.DatabaseLifecycles.startDatabase(DatabaseLifecycles.java:123) ~[neo4j-5.26.1.jar:5.26.1]
+	at org.neo4j.dbms.database.DatabaseLifecycles$SystemDatabaseStarter.start(DatabaseLifecycles.java:145) ~[neo4j-5.26.1.jar:5.26.1]
+	at org.neo4j.kernel.lifecycle.LifeSupport$LifecycleInstance.start(LifeSupport.java:347) ~[neo4j-common-5.26.1.jar:5.26.1]
+	at org.neo4j.kernel.lifecycle.LifeSupport.start(LifeSupport.java:91) ~[neo4j-common-5.26.1.jar:5.26.1]
+	at org.neo4j.graphdb.facade.DatabaseManagementServiceFactory.startDatabaseServer(DatabaseManagementServiceFactory.java:279) ~[neo4j-5.26.1.jar:5.26.1]
+	... 5 more
+2025-01-25 23:47:24.789+0000 INFO  Neo4j Server shutdown initiated by request
+2025-01-25 23:47:24.790+0000 INFO  Stopped.
