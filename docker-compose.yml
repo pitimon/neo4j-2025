@@ -29,9 +29,9 @@ services:
       - NEO4J_dbms_memory_pagecache_size=2G
       - NEO4J_dbms_memory_heap_max__size=2G
       - NEO4J_PLUGINS=["apoc"]
-    # ports:
-    #   - 7888:7474
-    #   - 7999:7687
+    ports:
+      - 20888:7474
+      - 20999:7687
     networks:
       - webproxy
     deploy:
