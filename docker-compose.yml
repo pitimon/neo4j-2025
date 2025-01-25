@@ -86,7 +86,7 @@ volumes:
     driver_opts:
       type: nfs
       o: addr=10.99.201.231,rw,soft,nfsvers=4,nolock,timeo=30
-      device: ":/mnt/Swarm/data/neo4j/certificates"
+      device: ":/mnt/Swarm/data/neo4j102/certificates"
 
 networks:
   webproxy:
