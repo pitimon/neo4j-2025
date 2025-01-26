@@ -83,10 +83,10 @@ services:
         # - traefik.http.routers.${TRAEFIK_NAME}-web.service=${TRAEFIK_NAME}-web
         - traefik.http.services.${TRAEFIK_NAME}-web.loadbalancer.server.port=7474
         # Middleware for security
-        - "traefik.http.middlewares.${TRAEFIK_NAME}-security.headers.sslRedirect=true"
-        - "traefik.http.middlewares.${TRAEFIK_NAME}-security.headers.stsIncludeSubdomains=true"
-        - "traefik.http.middlewares.${TRAEFIK_NAME}-security.headers.stsPreload=true"
-        - "traefik.http.middlewares.${TRAEFIK_NAME}-security.headers.stsSeconds=31536000"
+        # - "traefik.http.middlewares.${TRAEFIK_NAME}-security.headers.sslRedirect=true"
+        # - "traefik.http.middlewares.${TRAEFIK_NAME}-security.headers.stsIncludeSubdomains=true"
+        # - "traefik.http.middlewares.${TRAEFIK_NAME}-security.headers.stsPreload=true"
+        # - "traefik.http.middlewares.${TRAEFIK_NAME}-security.headers.stsSeconds=31536000"
         - "traefik.http.routers.${TRAEFIK_NAME}.middlewares=${TRAEFIK_NAME}@swarm"
       
       # #   # Bolt
