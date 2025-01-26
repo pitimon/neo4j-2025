@@ -73,7 +73,7 @@ services:
         window: 120s
       labels:
         - traefik.enable=true
-        - traefik.swarm.network=webproxy
+        # - traefik.swarm.network=webproxy
         
         # HTTP
         - traefik.http.routers.${TRAEFIK_NAME}-web.rule=Host(`${TRAEFIK_NAME}.dev.thaicloud.ai`)
@@ -81,13 +81,13 @@ services:
         - traefik.http.routers.${TRAEFIK_NAME}-web.tls=true
         - "traefik.http.routers.${TRAEFIK_NAME}-web.tls.certresolver=default"
         # - traefik.http.routers.${TRAEFIK_NAME}-web.service=${TRAEFIK_NAME}-web
-        - traefik.http.services.${TRAEFIK_NAME}-web.loadbalancer.server.port=7473
+        - traefik.http.services.${TRAEFIK_NAME}-web.loadbalancer.server.port=7474
         # Middleware for security
         - "traefik.http.middlewares.${TRAEFIK_NAME}-security.headers.sslRedirect=true"
         - "traefik.http.middlewares.${TRAEFIK_NAME}-security.headers.stsIncludeSubdomains=true"
         - "traefik.http.middlewares.${TRAEFIK_NAME}-security.headers.stsPreload=true"
         - "traefik.http.middlewares.${TRAEFIK_NAME}-security.headers.stsSeconds=31536000"
-        - "traefik.http.routers.${TRAEFIK_NAME}.middlewares=demo-${TRAEFIK_NAME}@swarm"
+        - "traefik.http.routers.${TRAEFIK_NAME}.middlewares=${TRAEFIK_NAME}@swarm"
       
       # #   # Bolt
       #   - traefik.tcp.routers.${TRAEFIK_NAME}-bolt.rule=Host(`${TRAEFIK_NAME}bolt.dev.thaicloud.ai`)
