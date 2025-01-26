@@ -8,7 +8,7 @@ services:
       - neo4j_conf:/conf
       - neo4j_data:/data
       - neo4j_plugins:/plugins
-      - neo4j_certificates:/ssl
+      - neo4j_certificates:/var/lib/neo4j/certificates
       - neo4j_import:/var/lib/neo4j/import
       - neo4j_backups:/var/lib/neo4j/backups
       - /etc/timezone:/etc/timezone:ro
@@ -18,14 +18,14 @@ services:
       - NEO4J_AUTH=neo4j/${PASSWORD}
       - NEO4J_dbms_default__advertised__address=neo4j102.dev.thaicloud.ai 
       - NEO4J_dbms_ssl_policy_bolt_enabled=true 
-      - NEO4J_dbms_ssl_policy_bolt_base__directory=certificates/bolt
+      - NEO4J_dbms_ssl_policy_bolt_base__directory=/var/lib/neo4j/certificates/bolt
       - NEO4J_dbms_ssl_policy_bolt_private__key=private.key
       - NEO4J_dbms_ssl_policy_bolt_public__certificate=public.crt
       - NEO4J_dbms_ssl_policy_bolt_client__auth=NONE
       - NEO4J_server_bolt_tls__level=REQUIRED
       - NEO4J_dbms_connector_https_enabled=true
       - NEO4J_dbms_ssl_policy_https_enabled=true
-      - NEO4J_dbms_ssl_policy_https_base__directory=certificates/https
+      - NEO4J_dbms_ssl_policy_https_base__directory=/var/lib/neo4j/certificates/https
       - NEO4J_dbms_ssl_policy_https_private__key=private.key
       - NEO4J_dbms_ssl_policy_https_public__certificate=public.crt
       - NEO4J_dbms_ssl_policy_https_client__auth=NONE
