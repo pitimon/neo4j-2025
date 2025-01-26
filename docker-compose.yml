@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   neo4j:
-    image: neo4j:latest
+    image: neo4j:community-bullseye
     container_name: neo4j
     volumes:
       - neo4j_logs:/logs
