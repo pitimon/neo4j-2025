@@ -48,6 +48,7 @@ services:
       - 27687:7687
     networks:
       - webproxy
+      - neo4jnet
     deploy:
       mode: replicated
       replicas: 1
@@ -73,7 +74,7 @@ services:
         window: 120s
       labels:
         - traefik.enable=true
-        # - traefik.swarm.network=webproxy
+        - traefik.swarm.network=webproxy
         
         # HTTP
         - traefik.http.routers.${TRAEFIK_NAME}-web.rule=Host(`${TRAEFIK_NAME}.dev.thaicloud.ai`)
@@ -99,3 +100,4 @@ volumes:
 networks:
   webproxy:
     external: true
+  neo4jnet:
