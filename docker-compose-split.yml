@@ -1,0 +1,165 @@
+version: '3.8'
+services:
+  neo4j-web:
+    image: neo4j:latest
+    volumes: &volumes
+      - neo4j_logs:/logs
+      - neo4j_conf:/conf
+      - neo4j_data:/data
+      - neo4j_plugins:/plugins
+      - neo4j_certificates:/ssl:ro
+      - neo4j_import:/var/lib/neo4j/import
+      - neo4j_backups:/var/lib/neo4j/backups
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
+      - NEO4J_AUTH=neo4j/${PASSWORD}
+
+      - NEO4J_server_default__listen__address=0.0.0.0
+      - NEO4J_server_default__advertised__address=neo4j.dev.thaicloud.ai
+
+      # Https SSL configuration
+      - NEO4J_server_https_enabled=true  
+      - NEO4J_dbms_ssl_policy_https_enabled=true
+      - NEO4J_dbms_ssl_policy_https_base__directory=/var/lib/neo4j/certificates/https
+      - NEO4J_dbms_ssl_policy_https_private__key=private.key
+      - NEO4J_dbms_ssl_policy_https_public__certificate=public.crt
+      - NEO4J_dbms_ssl_policy_https_client__auth=NONE
+
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.,gds.
+      - NEO4J_dbms_security_procedures_allowlist=apoc.,gds.
+      - NEO4J_initial_dbms_default__database=neo4j
+      - NEO4J_apoc_export_file_enabled=true
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_apoc_import_file_use__neo4j__config=true
+      - NEO4J_server_memory_heap_initial__size=4G
+      - NEO4J_server_memory_pagecache_size=4G
+      - NEO4J_server_memory_heap_max__size=4G
+      - NEO4J_PLUGINS=["apoc"]
+    # ports:
+    #   - 27473:7473
+    #   - 27474:7474
+    networks:
+      - webproxy
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+      resources:
+        # limits:
+        #   cpus: '4.0'
+        #   memory: 6G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+      update_config:
+        parallelism: 1
+        order: stop-first
+        failure_action: rollback
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      labels:
+        - traefik.enable=true
+        - traefik.swarm.network=webproxy
+        
+        # HTTP
+        - traefik.http.routers.${TRAEFIK_NAME}-web.rule=Host(`${TRAEFIK_NAME}.dev.thaicloud.ai`)
+        - traefik.http.routers.${TRAEFIK_NAME}-web.entrypoints=websecure
+        - traefik.http.routers.${TRAEFIK_NAME}-web.tls=true
+        - traefik.http.routers.${TRAEFIK_NAME}-web.tls.certresolver=default
+        - traefik.http.routers.${TRAEFIK_NAME}-web.service=${TRAEFIK_NAME}-web@swarm
+        - traefik.http.services.${TRAEFIK_NAME}-web.loadbalancer.server.port=7474      
+  
+  neo4j-bolt:
+    image: neo4j:latest
+    volumes: *volumes
+    environment:
+      - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
+      - NEO4J_AUTH=neo4j/${PASSWORD}
+
+      # - NEO4J_server_bolt_advertised__address=neo4j-bolt.dev.thaicloud.ai
+
+      # Bolt SSL configuration
+      - NEO4J_server_bolt_enabled=true
+      - NEO4J_server_bolt_tls__level=REQUIRED
+      - NEO4J_dbms_ssl_policy_bolt_enabled=true
+      - NEO4J_server_bolt_listen__address=0.0.0.0
+      - NEO4J_dbms_ssl_policy_bolt_base__directory=/var/lib/neo4j/certificates/bolt
+      - NEO4J_dbms_ssl_policy_bolt_private__key=private.key
+      - NEO4J_dbms_ssl_policy_bolt_public__certificate=public.crt
+      - NEO4J_dbms_ssl_policy_bolt_client__auth=NONE
+
+      - NEO4J_dbms_security_procedures_unrestricted=apoc.,gds.
+      - NEO4J_dbms_security_procedures_allowlist=apoc.,gds.
+      - NEO4J_initial_dbms_default__database=neo4j
+      - NEO4J_apoc_export_file_enabled=true
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_apoc_import_file_use__neo4j__config=true
+      - NEO4J_server_memory_heap_initial__size=4G
+      - NEO4J_server_memory_pagecache_size=4G
+      - NEO4J_server_memory_heap_max__size=4G
+      - NEO4J_PLUGINS=["apoc"]
+    # ports:
+    #   - 27687:7687
+    networks:
+      - webproxy
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+      resources:
+        # limits:
+        #   cpus: '4.0'
+        #   memory: 6G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+      update_config:
+        parallelism: 1
+        order: stop-first
+        failure_action: rollback
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      labels:
+        - traefik.enable=true
+        - traefik.swarm.network=webproxy
+        
+        # Bolt (7687)  
+        - traefik.http.routers.${TRAEFIK_NAME}-bolt.rule=Host(`${TRAEFIK_NAME}-bolt.dev.thaicloud.ai`)
+        - traefik.http.routers.${TRAEFIK_NAME}-bolt.entrypoints=websecure
+        - traefik.http.routers.${TRAEFIK_NAME}-bolt.tls=true
+        - traefik.http.routers.${TRAEFIK_NAME}-bolt.tls.certresolver=default
+        - traefik.http.routers.${TRAEFIK_NAME}-bolt.service=${TRAEFIK_NAME}-bolt@swarm
+        - traefik.http.services.${TRAEFIK_NAME}-bolt.loadbalancer.server.scheme=https
+        - traefik.http.services.${TRAEFIK_NAME}-bolt.loadbalancer.server.port=7687
+
+volumes:
+  neo4j_logs:
+  neo4j_conf:
+  neo4j_data:
+  neo4j_plugins:
+  neo4j_import:
+  neo4j_backups:
+  neo4j_certificates:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=10.99.201.231,rw,soft,nfsvers=4,nolock,timeo=30
+      device: ":/mnt/Swarm/data/neo4j/certificates"
+        
+networks:
+  webproxy:
+    external: true
