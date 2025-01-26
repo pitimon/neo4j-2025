@@ -16,7 +16,7 @@ services:
     environment:
       - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
       - NEO4J_AUTH=neo4j/${PASSWORD}
-      - NEO4J_server_default__advertised__address=neo4j.dev.thaicloud.ai
+      # - NEO4J_server_default__advertised__address=neo4j.dev.thaicloud.ai
       
       # Bolt config
       - NEO4J_server_bolt_tls__level=DISABLED
@@ -30,14 +30,20 @@ services:
       # - NEO4J_dbms_ssl_policy_bolt_public__certificate=public.crt
       # - NEO4J_dbms_ssl_policy_bolt_client__auth=NONE
       # - NEO4J_server_bolt_tls__level=OPTIONAL
-
-      # Https SSL configuration
-      - NEO4J_server_https_enabled=true  
+      
+      # HTTPS config
+      - NEO4J_server_https_enabled=true
       - NEO4J_dbms_ssl_policy_https_enabled=true
       - NEO4J_dbms_ssl_policy_https_base__directory=/var/lib/neo4j/certificates/https
       - NEO4J_dbms_ssl_policy_https_private__key=private.key
       - NEO4J_dbms_ssl_policy_https_public__certificate=public.crt
-      - NEO4J_dbms_ssl_policy_https_client__auth=NONE
+      # Https SSL configuration
+      # - NEO4J_server_https_enabled=true  
+      # - NEO4J_dbms_ssl_policy_https_enabled=true
+      # - NEO4J_dbms_ssl_policy_https_base__directory=/var/lib/neo4j/certificates/https
+      # - NEO4J_dbms_ssl_policy_https_private__key=private.key
+      # - NEO4J_dbms_ssl_policy_https_public__certificate=public.crt
+      # - NEO4J_dbms_ssl_policy_https_client__auth=NONE
 
       - NEO4J_dbms_security_procedures_unrestricted=apoc.,gds.
       - NEO4J_dbms_security_procedures_allowlist=apoc.,gds.
