@@ -86,6 +86,7 @@ services:
         - traefik.tcp.routers.${TRAEFIK_NAME}-bolt.rule=HostSNI(`${TRAEFIK_NAME}bolt.dev.thaicloud.ai`)
         - traefik.tcp.routers.${TRAEFIK_NAME}-bolt.entrypoints=websecure
         - traefik.tcp.routers.${TRAEFIK_NAME}-bolt.tls=true
+        - traefik.http.routers.${TRAEFIK_NAME}-web.service=${TRAEFIK_NAME}-bolt
         - traefik.tcp.services.${TRAEFIK_NAME}-bolt.loadbalancer.server.port=7687
         
 volumes:
