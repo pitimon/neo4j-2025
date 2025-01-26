@@ -87,13 +87,8 @@ services:
         # - "traefik.http.middlewares.${TRAEFIK_NAME}-security.headers.stsIncludeSubdomains=true"
         # - "traefik.http.middlewares.${TRAEFIK_NAME}-security.headers.stsPreload=true"
         # - "traefik.http.middlewares.${TRAEFIK_NAME}-security.headers.stsSeconds=31536000"
-        - "traefik.http.routers.${TRAEFIK_NAME}.middlewares=${TRAEFIK_NAME}@swarm"
+        # - "traefik.http.routers.${TRAEFIK_NAME}.middlewares=${TRAEFIK_NAME}@swarm"
       
-      # #   # Bolt
-      #   - traefik.tcp.routers.${TRAEFIK_NAME}-bolt.rule=Host(`${TRAEFIK_NAME}bolt.dev.thaicloud.ai`)
-      #   - traefik.tcp.routers.${TRAEFIK_NAME}-bolt.entrypoints=websecure
-      #   - traefik.tcp.routers.${TRAEFIK_NAME}-bolt.tls=true
-      #   - traefik.tcp.services.${TRAEFIK_NAME}-bolt.loadbalancer.server.port=7687
         
 volumes:
   neo4j_logs:
