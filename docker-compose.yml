@@ -79,7 +79,7 @@ services:
         - traefik.http.routers.${TRAEFIK_NAME}-web.rule=Host(`${TRAEFIK_NAME}.dev.thaicloud.ai`)
         - traefik.http.routers.${TRAEFIK_NAME}-web.entrypoints=websecure
         - traefik.http.routers.${TRAEFIK_NAME}-web.tls=true
-        - traefik.http.routers.${TRAEFIK_NAME}-web.service=${TRAEFIK_NAME}-web
+        - traefik.http.routers.${TRAEFIK_NAME}-web.service=${TRAEFIK_NAME}
         - traefik.http.services.${TRAEFIK_NAME}-web.loadbalancer.server.port=7473
       
       # #   # Bolt
