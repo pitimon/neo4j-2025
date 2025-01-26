@@ -16,7 +16,6 @@ services:
     environment:
       - NEO4J_ACCEPT_LICENSE_AGREEMENT=yes
       - NEO4J_AUTH=neo4j/${PASSWORD}
-      - NEO4J_dbms_default__advertised__address=neo4j102.dev.thaicloud.ai 
       - NEO4J_dbms_ssl_policy_bolt_enabled=true 
       - NEO4J_dbms_ssl_policy_bolt_base__directory=/var/lib/neo4j/certificates/certificates/bolt
       - NEO4J_dbms_ssl_policy_bolt_private__key=private.key
@@ -25,7 +24,6 @@ services:
       - NEO4J_server_bolt_tls__level=REQUIRED
       - NEO4J_server_https_enabled=true  # แทน dbms.connector.https.enabled
       - NEO4J_server_default__advertised__address=neo4j.thaicloud.ai
-      - NEO4J_dbms_connector_https_enabled=true
       - NEO4J_dbms_ssl_policy_https_enabled=true
       - NEO4J_dbms_ssl_policy_https_base__directory=/var/lib/neo4j/certificates/certificates/https
       - NEO4J_dbms_ssl_policy_https_private__key=private.key
