@@ -43,8 +43,8 @@ services:
       - NEO4J_server_memory_heap_max__size=2G
       - NEO4J_PLUGINS=["apoc"]
     ports:
-      # - 27473:7473
-      # - 27474:7474
+      - 27473:7473
+      - 27474:7474
       - 27687:7687
     networks:
       - webproxy
@@ -80,7 +80,7 @@ services:
         - traefik.http.routers.${TRAEFIK_NAME}-web.entrypoints=websecure
         - traefik.http.routers.${TRAEFIK_NAME}-web.tls=true
         - traefik.http.routers.${TRAEFIK_NAME}-web.service=${TRAEFIK_NAME}-web
-        - traefik.http.services.${TRAEFIK_NAME}-web.loadbalancer.server.port=7474
+        - traefik.http.services.${TRAEFIK_NAME}-web.loadbalancer.server.port=7473
       
       # #   # Bolt
       #   - traefik.tcp.routers.${TRAEFIK_NAME}-bolt.rule=Host(`${TRAEFIK_NAME}bolt.dev.thaicloud.ai`)
