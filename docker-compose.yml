@@ -43,7 +43,7 @@ services:
       - NEO4J_dbms_memory_heap_max__size=2G
       - NEO4J_PLUGINS=["apoc"]
     ports:
-      - 27373:7373
+      - 27473:7473
       - 27474:7474
       - 27687:7687
     networks:
