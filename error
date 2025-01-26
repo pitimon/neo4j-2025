@@ -1,51 +1,27 @@
+Installing Plugin 'apoc' from /var/lib/neo4j/labs/apoc-*-core.jar to /plugins/apoc.jar
+Applying default values for plugin apoc to neo4j.conf
 Changed password for user 'neo4j'. IMPORTANT: this change will only take effect if performed before the database is started for the first time.
-2025-01-25 23:47:09.327+0000 INFO  Logging config in use: Embedded default config 'default-user-logs.xml'
-2025-01-25 23:47:09.332+0000 WARN  Use of deprecated setting 'dbms.connector.bolt.enabled'. It is replaced by 'server.bolt.enabled'.
-2025-01-25 23:47:09.352+0000 WARN  Use of deprecated setting 'dbms.connector.bolt.listen_address'. It is replaced by 'server.bolt.listen_address'.
-2025-01-25 23:47:09.353+0000 WARN  Use of deprecated setting 'dbms.default_listen_address'. It is replaced by 'server.default_listen_address'.
-2025-01-25 23:47:09.354+0000 INFO  Starting...
-2025-01-25 23:47:10.322+0000 INFO  This instance is ServerId{5040db53} (5040db53-c4a0-4a8e-8b3e-f46c13b442e3)
-2025-01-25 23:47:11.386+0000 INFO  ======== Neo4j 5.26.1 ========
-2025-01-25 23:47:24.787+0000 ERROR Failed to start Neo4j on 0.0.0.0:7474.
-java.lang.RuntimeException: Error starting Neo4j database server at /data/databases
-	at org.neo4j.graphdb.facade.DatabaseManagementServiceFactory.startDatabaseServer(DatabaseManagementServiceFactory.java:288) ~[neo4j-5.26.1.jar:5.26.1]
-	at org.neo4j.graphdb.facade.DatabaseManagementServiceFactory.build(DatabaseManagementServiceFactory.java:223) ~[neo4j-5.26.1.jar:5.26.1]
+2025-01-26 03:27:55.388+0000 INFO  Logging config in use: Embedded default config 'default-user-logs.xml'
+2025-01-26 03:27:55.394+0000 WARN  Use of deprecated setting 'dbms.connector.bolt.tls_level'. It is replaced by 'server.bolt.tls_level'.
+2025-01-26 03:27:55.394+0000 WARN  Use of deprecated setting 'dbms.connector.https.enabled'. It is replaced by 'server.https.enabled'.
+2025-01-26 03:27:55.394+0000 WARN  Use of deprecated setting 'dbms.security.procedures.whitelist'. It is replaced by 'dbms.security.procedures.allowlist'.
+2025-01-26 03:27:55.394+0000 WARN  Use of deprecated setting 'dbms.default_advertised_address'. It is replaced by 'server.default_advertised_address'.
+2025-01-26 03:27:55.395+0000 WARN  Use of deprecated setting 'dbms.memory.pagecache.size'. It is replaced by 'server.memory.pagecache.size'.
+2025-01-26 03:27:55.395+0000 WARN  Use of deprecated setting 'dbms.memory.heap.max_size'. It is replaced by 'server.memory.heap.max_size'.
+2025-01-26 03:27:55.395+0000 WARN  Use of deprecated setting 'dbms.memory.heap.initial_size'. It is replaced by 'server.memory.heap.initial_size'.
+2025-01-26 03:27:55.397+0000 INFO  Starting...
+2025-01-26 03:27:56.398+0000 ERROR Failed to start Neo4j on 0.0.0.0:7474.
+java.lang.IllegalArgumentException: Base directory '/var/lib/neo4j/certificates/https' for SSL policy with name 'https' does not exist.
+	at org.neo4j.ssl.config.SslPolicyLoader.createSslPolicy(SslPolicyLoader.java:159) ~[neo4j-ssl-5.26.1.jar:5.26.1]
+	at org.neo4j.ssl.config.SslPolicyLoader.addPolicy(SslPolicyLoader.java:147) ~[neo4j-ssl-5.26.1.jar:5.26.1]
+	at java.util.HashMap$Values.forEach(HashMap.java:1065) ~[?:?]
+	at org.neo4j.ssl.config.SslPolicyLoader.load(SslPolicyLoader.java:138) ~[neo4j-ssl-5.26.1.jar:5.26.1]
+	at org.neo4j.ssl.config.SslPolicyLoader.create(SslPolicyLoader.java:106) ~[neo4j-ssl-5.26.1.jar:5.26.1]
+	at org.neo4j.graphdb.factory.module.edition.CommunityEditionModule.<init>(CommunityEditionModule.java:125) ~[neo4j-5.26.1.jar:5.26.1]
+	at org.neo4j.graphdb.facade.DatabaseManagementServiceFactory.build(DatabaseManagementServiceFactory.java:145) ~[neo4j-5.26.1.jar:5.26.1]
 	at org.neo4j.server.CommunityBootstrapper.createNeo(CommunityBootstrapper.java:38) ~[neo4j-5.26.1.jar:5.26.1]
 	at org.neo4j.server.NeoBootstrapper.start(NeoBootstrapper.java:185) [neo4j-5.26.1.jar:5.26.1]
 	at org.neo4j.server.NeoBootstrapper.start(NeoBootstrapper.java:100) [neo4j-5.26.1.jar:5.26.1]
 	at org.neo4j.server.CommunityEntryPoint.main(CommunityEntryPoint.java:30) [neo4j-5.26.1.jar:5.26.1]
-Caused by: org.neo4j.kernel.lifecycle.LifecycleException: Component 'org.neo4j.dbms.database.DefaultSystemGraphInitializer@51f68849' was successfully initialized, but failed to start. Please see the attached cause exception "The selected target store format 'AF4.3.0' (introduced in 4.3.0) is no longer supported".
-	at org.neo4j.kernel.lifecycle.LifeSupport$LifecycleInstance.start(LifeSupport.java:364) ~[neo4j-common-5.26.1.jar:5.26.1]
-	at org.neo4j.kernel.lifecycle.LifeSupport.start(LifeSupport.java:91) ~[neo4j-common-5.26.1.jar:5.26.1]
-	at org.neo4j.graphdb.facade.DatabaseManagementServiceFactory.startDatabaseServer(DatabaseManagementServiceFactory.java:279) ~[neo4j-5.26.1.jar:5.26.1]
-	... 5 more
-Caused by: org.neo4j.graphdb.DatabaseShutdownException: This database is shutdown.
-	at org.neo4j.kernel.availability.DatabaseAvailabilityGuard.assertDatabaseAvailable(DatabaseAvailabilityGuard.java:154) ~[neo4j-kernel-5.26.1.jar:5.26.1]
-	at org.neo4j.kernel.impl.factory.GraphDatabaseFacade.beginKernelTransaction(GraphDatabaseFacade.java:156) ~[neo4j-kernel-5.26.1.jar:5.26.1]
-	at org.neo4j.kernel.impl.factory.GraphDatabaseFacade.beginTransactionInternal(GraphDatabaseFacade.java:124) ~[neo4j-kernel-5.26.1.jar:5.26.1]
-	at org.neo4j.kernel.impl.factory.GraphDatabaseFacade.beginTransaction(GraphDatabaseFacade.java:93) ~[neo4j-kernel-5.26.1.jar:5.26.1]
-	at org.neo4j.kernel.impl.factory.GraphDatabaseTransactions.beginTransaction(GraphDatabaseTransactions.java:113) ~[neo4j-kernel-5.26.1.jar:5.26.1]
-	at org.neo4j.kernel.impl.factory.GraphDatabaseTransactions.beginTransaction(GraphDatabaseTransactions.java:107) ~[neo4j-kernel-5.26.1.jar:5.26.1]
-	at org.neo4j.kernel.impl.factory.GraphDatabaseTransactions.beginTransaction(GraphDatabaseTransactions.java:102) ~[neo4j-kernel-5.26.1.jar:5.26.1]
-	at org.neo4j.kernel.impl.factory.GraphDatabaseTransactions.beginTx(GraphDatabaseTransactions.java:93) ~[neo4j-kernel-5.26.1.jar:5.26.1]
-	at org.neo4j.dbms.database.SystemGraphComponents.initializeSystemGraph(SystemGraphComponents.java:84) ~[neo4j-kernel-5.26.1.jar:5.26.1]
-	at org.neo4j.dbms.database.DefaultSystemGraphInitializer.initializeSystemGraph(DefaultSystemGraphInitializer.java:38) ~[neo4j-5.26.1.jar:5.26.1]
-	at org.neo4j.dbms.database.SystemGraphInitializer.start(SystemGraphInitializer.java:27) ~[neo4j-kernel-5.26.1.jar:5.26.1]
-	at org.neo4j.kernel.lifecycle.LifeSupport$LifecycleInstance.start(LifeSupport.java:347) ~[neo4j-common-5.26.1.jar:5.26.1]
-	at org.neo4j.kernel.lifecycle.LifeSupport.start(LifeSupport.java:91) ~[neo4j-common-5.26.1.jar:5.26.1]
-	at org.neo4j.graphdb.facade.DatabaseManagementServiceFactory.startDatabaseServer(DatabaseManagementServiceFactory.java:279) ~[neo4j-5.26.1.jar:5.26.1]
-	... 5 more
-Caused by: org.neo4j.kernel.impl.storemigration.UnableToMigrateException: The selected target store format 'AF4.3.0' (introduced in 4.3.0) is no longer supported
-	at org.neo4j.kernel.impl.storemigration.StoreMigrator.doUpgradeCheck(StoreMigrator.java:402) ~[neo4j-kernel-5.26.1.jar:5.26.1]
-	at org.neo4j.kernel.impl.storemigration.StoreMigrator.upgradeIfNeeded(StoreMigrator.java:249) ~[neo4j-kernel-5.26.1.jar:5.26.1]
-	at org.neo4j.kernel.database.Database.upgradeStore(Database.java:802) ~[neo4j-kernel-5.26.1.jar:5.26.1]
-	at org.neo4j.kernel.database.Database.specificStart(Database.java:427) ~[neo4j-kernel-5.26.1.jar:5.26.1]
-	at org.neo4j.kernel.database.AbstractDatabase.start(AbstractDatabase.java:167) ~[neo4j-kernel-5.26.1.jar:5.26.1]
-	at org.neo4j.dbms.database.DatabaseLifecycles.startDatabase(DatabaseLifecycles.java:123) ~[neo4j-5.26.1.jar:5.26.1]
-	at org.neo4j.dbms.database.DatabaseLifecycles$SystemDatabaseStarter.start(DatabaseLifecycles.java:145) ~[neo4j-5.26.1.jar:5.26.1]
-	at org.neo4j.kernel.lifecycle.LifeSupport$LifecycleInstance.start(LifeSupport.java:347) ~[neo4j-common-5.26.1.jar:5.26.1]
-	at org.neo4j.kernel.lifecycle.LifeSupport.start(LifeSupport.java:91) ~[neo4j-common-5.26.1.jar:5.26.1]
-	at org.neo4j.graphdb.facade.DatabaseManagementServiceFactory.startDatabaseServer(DatabaseManagementServiceFactory.java:279) ~[neo4j-5.26.1.jar:5.26.1]
-	... 5 more
-2025-01-25 23:47:24.789+0000 INFO  Neo4j Server shutdown initiated by request
-2025-01-25 23:47:24.790+0000 INFO  Stopped.
+2025-01-26 03:27:56.420+0000 INFO  Neo4j Server shutdown initiated by request
+2025-01-26 03:27:56.421+0000 INFO  Stopped.
