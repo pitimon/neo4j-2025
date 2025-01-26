@@ -71,22 +71,22 @@ services:
         delay: 5s
         max_attempts: 3
         window: 120s
-      labels:
-        - traefik.enable=true
-        - traefik.swarm.network=webproxy
+      # labels:
+      #   - traefik.enable=true
+      #   - traefik.swarm.network=webproxy
         
-        # HTTP
-        - traefik.http.routers.${TRAEFIK_NAME}-web.rule=Host(`${TRAEFIK_NAME}.dev.thaicloud.ai`)
-        - traefik.http.routers.${TRAEFIK_NAME}-web.entrypoints=websecure
-        - traefik.http.routers.${TRAEFIK_NAME}-web.tls=true
-        - traefik.http.routers.${TRAEFIK_NAME}-web.service=${TRAEFIK_NAME}-web
-        - traefik.http.services.${TRAEFIK_NAME}-web.loadbalancer.server.port=7474
+      #   # HTTP
+      #   - traefik.http.routers.${TRAEFIK_NAME}-web.rule=Host(`${TRAEFIK_NAME}.dev.thaicloud.ai`)
+      #   - traefik.http.routers.${TRAEFIK_NAME}-web.entrypoints=websecure
+      #   - traefik.http.routers.${TRAEFIK_NAME}-web.tls=true
+      #   - traefik.http.routers.${TRAEFIK_NAME}-web.service=${TRAEFIK_NAME}-web
+      #   - traefik.http.services.${TRAEFIK_NAME}-web.loadbalancer.server.port=7474
       
-        # Bolt
-        - traefik.tcp.routers.${TRAEFIK_NAME}-bolt.rule=HostSNI(`${TRAEFIK_NAME}bolt.dev.thaicloud.ai`)
-        - traefik.tcp.routers.${TRAEFIK_NAME}-bolt.entrypoints=websecure
-        - traefik.tcp.routers.${TRAEFIK_NAME}-bolt.tls=true
-        - traefik.tcp.services.${TRAEFIK_NAME}-bolt.loadbalancer.server.port=7687
+      #   # Bolt
+      #   - traefik.tcp.routers.${TRAEFIK_NAME}-bolt.rule=HostSNI(`${TRAEFIK_NAME}bolt.dev.thaicloud.ai`)
+      #   - traefik.tcp.routers.${TRAEFIK_NAME}-bolt.entrypoints=websecure
+      #   - traefik.tcp.routers.${TRAEFIK_NAME}-bolt.tls=true
+      #   - traefik.tcp.services.${TRAEFIK_NAME}-bolt.loadbalancer.server.port=7687
         
 volumes:
   neo4j_logs:
